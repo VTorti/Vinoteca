@@ -1,2 +1,2 @@
-# bodega
- Página web de vinoteca enlazada a base de datos
+# Bodega
+ Página web de vinoteca en PHP enlazada a base de datos MYSQL
