@@ -115,6 +115,9 @@ if ($result->num_rows > 0) {
           <?php
     }
     ?>
+    <div  style="float: right;height: 100%; background-color: white">
+        <img src="imagenes/<?=$row['imagen']?>" alt="<?=$row['nombre']?>"  style=" float:right;width: 100px;height: 200px">
+      </div>
       
       <strong>ID: </strong><?=$row['idvinos']?><br>
       <strong>Nombre: </strong><?=$row['nombre']?><br>
@@ -138,7 +141,7 @@ if ($result->num_rows > 0) {
       <strong>Precio: </strong><?=$row['precio']?> €<br>
     
         
-        <button onclick="document.getElementById('<?=$id?>').style.display='block'" class="w3-button w3-highway-red">Pedir</button>
+        <button onclick="document.getElementById('<?=$id?>').style.display='block'" class="w3-button w3-highway-red" style="border-radius: 15px 50px;">Pedir</button>
         <div id="<?=$id?>" class="w3-modal">
         <div class="w3-modal-content w3-animate-top w3-card-4">
           <div class="w3-container modal-contenido">

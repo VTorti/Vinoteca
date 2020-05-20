@@ -58,10 +58,10 @@ body {font-size:16px;}
   <div class="w3-container w3-image foto" style="width: 100%;margin-left: 0px padding:10px">
   <p>      
     <label class="w3-text" style="margin-left:20px;color:black"><b>Precio mínimo</b></label>
-    <input class="w3-input w3-border w3-sand w3-display-top" name="preciomin" type="text" required style="margin-left:20px;width:90%" required value="€">
+    <input class="w3-input w3-border w3-sand w3-display-top" name="preciomin" type="text" required style="margin-left:20px;width:90%" required placeholder="€">
           
     <label class="w3-text" style="margin-left:20px;color:black"><b>Precio máximo</b></label>
-    <input class="w3-input w3-border w3-sand w3-display-top" name="preciomax" type="text" required style="margin-left:20px;width:90%" required value="€"></p>
+    <input class="w3-input w3-border w3-sand w3-display-top" name="preciomax" type="text" required style="margin-left:20px;width:90%" required placeholder ="€"></p>
     <p>    
   <p>
     <input type="submit" required style="margin-left:20px" class="w3-btn w3-highway-red" value="Buscar" ></input></p>
@@ -71,7 +71,7 @@ body {font-size:16px;}
     
       
       
-    
+  
         
         
         

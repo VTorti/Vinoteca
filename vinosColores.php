@@ -108,6 +108,9 @@ if ($result->num_rows > 0) {
           <?php
     }
     ?>
+    <div  style="float: right;height: 100%; background-color: white">
+        <img src="imagenes/<?=$row['imagen']?>" alt="<?=$row['nombre']?>"  style=" float:right;width: 100px;height: 200px">
+      </div>
       
       <strong>ID: </strong><?=$_SESSION['id']?><br>
       <strong>Nombre: </strong><?=$row['nombre']?><br>
@@ -131,22 +134,22 @@ if ($result->num_rows > 0) {
       <strong>Precio: </strong><?=$row['precio']?> €<br>
     
         
-        <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Pedir</button>
-        <div id="id01" class="w3-modal">
+        <button onclick="document.getElementById('<?=$id?>').style.display='block'" class="w3-button w3-highway-red" style="border-radius: 15px 50px;">Pedir</button>
+        <div id="<?=$id?>" class="w3-modal">
         <div class="w3-modal-content w3-animate-top w3-card-4">
           <div class="w3-container modal-contenido">
-            <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <span onclick="document.getElementById('<?=$id?>').style.display='none'" class="w3-button w3-display-topright">&times;</span>
             <h2>Seleccione fecha de envío</h2>
-            <?php
-			$numero=$_SESSION['id'];
-			?>
+            
             <p>      
         <form action="modificar.php" method="post">
-        <input class="w3-text" style="margin-left:20px;color:#a7001a" name="numero" value="<?=$numero?>"><b><?=$numero?></b></input>
-        <input class="w3-input w3-border w3-sand" name="envio" type="date" style="margin-left:20px;width:90%"></p>
-        <button onclick="document.getElementById('id01').style.display='block'" class="w3-btn w3-highway-red" style="margin-left:20px;margin-bottom:5px ">Pedir</button></p>
+        <input class="w3-text" style="margin-left:20px;color:#a7001a" name="numero" value="<?=$id?>" hidden></input>
+        <input class="w3-input w3-border w3-sand" name="envio" type="date" style="margin-left:20px;width:90%" required></input>
+        <input style="margin-left: 20px" type="submit" name="pedir" value="Pedir" class="w3-button w3-highway-red"></input>
         
-      	</form>
+        
+        </form>
+        </p>
           </div>
         </div>
       </div>

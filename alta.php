@@ -103,7 +103,7 @@ body {font-size:16px;}
     <label class="w3-text" style="margin-left:20px;color:#a7001a"><b>Precio</b></label>
     <input class="w3-input w3-border w3-sand" name="precio" value="" type="float" maxlength="13"required style="margin-left:20px;width:90%" placeholder="€"></p>
     <label class="w3-text" style="margin-left:20px;color:#a7001a"><b>Fotografía</b></label>
-    <input class="w3-input w3-border w3-sand" name="archivo" type="file" required style="margin-left:20px;width:90%"></p>
+    <input class="w3-input w3-border w3-sand" name="fileToUpload" type="file" required style="margin-left:20px;width:90%"></p>
     <label class="w3-text" style="margin-left:20px;color:#a7001a"><b>Provincia de origen</b></label>
     <select class="w3-select w3-border w3-sand" style="margin-left:20px;width:90%" name='provincia' required> 
 
@@ -127,7 +127,7 @@ body {font-size:16px;}
         ?> 
   </select>
     <p>
-    <button onclick="document.getElementById('<?=$provincia?>').style.display='block'" class="w3-btn w3-highway-red" style="margin-left:20px;margin-bottom:5px ">Añadir</button></p>
+    <button name="submit" onclick="document.getElementById('<?=$provincia?>').style.display='block'" class="w3-btn w3-highway-red" style="margin-left:20px;margin-bottom:5px ">Añadir</button></p>
     <?php
 			if(isset($_POST['nombre'])){
 				$nombre = $_POST['nombre'];
@@ -138,35 +138,53 @@ body {font-size:16px;}
 				$precio = $_POST['precio'];
 				$prov=$_POST['provincia'];
 				$campos = array();
+				$nombreFoto=$_FILES['fileToUpload']['name'];
 				
-				$archivo=$_FILES['archivo'];
-				$nombreFoto=$archivo['name'];
-				$tipoFoto=$archivo['type'];
-				$Arch_mime=mime_content_type($_FILES['archivo']['tmp_name']);
 				
+			
+				
+					$target_dir = "imagenes/";
+					$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+					$uploadOk = 1;
+					$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-				if ($tipo=="image/jpg" || $tipo=="image/jpeg" || $tipo=="image/png") {
-
-				<!--implementar validacion para $Arch_mine-->
-				if(($Arch_mime=="image/jpg") AND ($Arch_mime=="image/jpeg") AND ($Arch_mime=="image/png")){
-
-
-
-	
-				if(!is_dir('images')){
-					mkdir('images',0777);
-					array_push($campos, "El archivo ya existe");
-				}
-					move_uploaded_file($archivo['tmp_name'], 'imagenes/'.$nombre);
 					
-				}else{
-				array_push($campos, "Solo puede introducir .jpg, .jpeg, .png");
-			}
+					if(isset($_POST["submit"])) {
+					  $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+					  if($check !== false) {
+					    
+					    $uploadOk = 1;
+					  } else {
+					    array_push($campos, "File is not an image");
+					    $uploadOk = 0;
+					  }
+					}
 
+					
+					if (file_exists($target_file)) {
+					  array_push($campos, "Sorry, file already exists");
+					  $uploadOk = 0;
+					}
 
-			}else{
-				array_push($campos, "Solo puede introducir .jpg, .jpeg, .png");
-			}
+					
+					if ($_FILES["fileToUpload"]["size"] > 500000) {
+					  array_push($campos, "Sorry, your file is too large");
+					  $uploadOk = 0;
+					}
+
+					
+					if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+					&& $imageFileType != "gif" ) {
+					 array_push($campos, "Sorry, only JPG, JPEG, PNG & GIF files are allowed"); 
+					  $uploadOk = 0;
+					}
+
+					
+					if ($uploadOk == 0) {
+					  array_push($campos, "Sorry, your file was not uploaded");
+					
+					}  
+					
 				
 				
 				
@@ -272,6 +290,7 @@ body {font-size:16px;}
 
 								    	$sql = "INSERT INTO vinos (nombre,bodega,tipo,disponible,cosecha,ean,fechaAlta,precio,imagen,provincia)
 					  VALUES ('$nombre', '$bodega', '$tipo','$disponible', '$cosecha', '$ean', '$fechaAlta', '$precio','$nombreFoto', '$prov')";
+					  move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
 
 					  if (mysqli_query($conn, $sql)) {
 					      echo "<div><h1>El vino fue añadido</h1></div>";
