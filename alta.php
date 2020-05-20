@@ -72,7 +72,7 @@ body {font-size:16px;}
   <div class="w3-container w3-highway-red" id="alta" style="margin-top:100px">
     <h2>Añade tu vino</h2>
   </div>
-  <form class="w3-display-container w3-text-black" action="<?php echo htmlspecialchars($_SERVER['PHP_SHELF']); ?>" method="post" enctype="multipart/form-data">
+  <form class="w3-display-container w3-text-black" action="" method="post" enctype="multipart/form-data">
   	
 
     <p>      
@@ -140,6 +140,9 @@ body {font-size:16px;}
 				$campos = array();
 				$nombreFoto=$_FILES['fileToUpload']['name'];
 				
+				
+			
+				
 					$target_dir = "imagenes/";
 					$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 					$uploadOk = 1;
@@ -152,40 +155,38 @@ body {font-size:16px;}
 					    
 					    $uploadOk = 1;
 					  } else {
-					    array_push($campos, "No es una imagen");
+					    array_push($campos, "File is not an image");
 					    $uploadOk = 0;
 					  }
 					}
 
 					
 					if (file_exists($target_file)) {
-					  array_push($campos, "El archivo ya existe");
+					  array_push($campos, "Sorry, file already exists");
 					  $uploadOk = 0;
 					}
 
 					
 					if ($_FILES["fileToUpload"]["size"] > 500000) {
-					  array_push($campos, "El archivo es muy grande");
+					  array_push($campos, "Sorry, your file is too large");
 					  $uploadOk = 0;
 					}
 
 					
 					if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
 					&& $imageFileType != "gif" ) {
-					 array_push($campos, "Solo JPG, JPEG, PNG & GIF"); 
+					 array_push($campos, "Sorry, only JPG, JPEG, PNG & GIF files are allowed"); 
 					  $uploadOk = 0;
 					}
 
 					
 					if ($uploadOk == 0) {
-					  array_push($campos, "El archivo no ha sido subido");
+					  array_push($campos, "Sorry, your file was not uploaded");
 					
 					}  
 					
 				
-				if($precio<=0){
-				array_push($campos, "El precio no puede ser negativo");
-			}
+				
 				
 
 				if ($nombre == "") {
