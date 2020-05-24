@@ -144,6 +144,15 @@ if ($result->num_rows > 0) {
       <strong>Cosecha: </strong><?=$row['cosecha']?><br>
       <strong>EAN: </strong><?=$row['ean']?><br>
       <strong>Precio: </strong><?=$row['precio']?> €<br>
+
+      <?php
+
+      $sql1 = "SELECT * from provincias where id=$prov";
+      $result1 = $conn->query($sql1);
+      $row1 = $result1->fetch_assoc();
+
+      ?>
+      <strong>Provincia: </strong><?=$row1['provincia']?><br>
       
       
         

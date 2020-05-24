@@ -98,6 +98,7 @@ if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
     $id=$row['idvinos'];
+    $prov=$row['provincia'];
       ?>
   
     <?php
@@ -139,6 +140,14 @@ if ($result->num_rows > 0) {
       <strong>Cosecha: </strong><?=$row['cosecha']?><br>
       <strong>EAN: </strong><?=$row['ean']?><br>
       <strong>Precio: </strong><?=$row['precio']?> €<br>
+      <?php
+
+      $sql1 = "SELECT * from provincias where id=$prov";
+      $result1 = $conn->query($sql1);
+      $row1 = $result1->fetch_assoc();
+
+      ?>
+      <strong>Provincia: </strong><?=$row1['provincia']?><br>
     
         
         <button onclick="document.getElementById('<?=$id?>').style.display='block'" class="w3-button w3-highway-red" style="border-radius: 15px 50px;">Pedir</button>
